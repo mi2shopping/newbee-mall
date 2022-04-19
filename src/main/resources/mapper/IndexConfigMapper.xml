@@ -24,6 +24,23 @@
 		<result column="update_user" jdbcType="INTEGER"
 			property="updateUser" />
 	</resultMap>
+	<resultMap id="GoodsInfoBaseResultMap" type="ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods">
+        <id column="goods_id" jdbcType="BIGINT" property="goodsId"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="goods_intro" jdbcType="VARCHAR" property="goodsIntro"/>
+        <result column="goods_category_id" jdbcType="BIGINT" property="goodsCategoryId"/>
+        <result column="goods_cover_img" jdbcType="VARCHAR" property="goodsCoverImg"/>
+        <result column="goods_carousel" jdbcType="VARCHAR" property="goodsCarousel"/>
+        <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
+        <result column="selling_price" jdbcType="INTEGER" property="sellingPrice"/>
+        <result column="stock_num" jdbcType="INTEGER" property="stockNum"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="goods_sell_status" jdbcType="TINYINT" property="goodsSellStatus"/>
+        <result column="create_user" jdbcType="INTEGER" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="INTEGER" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
 
 	<select id="findIndexConfigsByTypeAndNum"
 		resultMap="BaseResultMap">
@@ -36,4 +53,16 @@
 		order by config_rank desc
 		limit #{number}
 	</select>
+	
+	<select id="tb_newbee_mall_goods_info"
+	 resultType="list">
+  SELECT *
+  FROM tb_newbee_mall_goods_info
+  <where>   goods_id in
+    <foreach item="id" collection="list" separator="," open="(" close=")" index="">
+6       #{id}
+7     </foreach>
+	order by filed (goods_id);
+</where>
+</select>
 </mapper>

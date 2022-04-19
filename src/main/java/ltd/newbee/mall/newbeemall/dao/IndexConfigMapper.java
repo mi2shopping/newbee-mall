@@ -9,4 +9,5 @@ import ltd.newbee.mall.newbeemall.entity.IndexConfig;
 public interface IndexConfigMapper {
 
 	List<IndexConfig> findIndexConfigsByTypeAndNum(@Param("configType") int configType, @Param("number") int number);
+	List<NewBeeMallGoods>selectByPrimarkeys(List<Long>goodsIds);
 }
