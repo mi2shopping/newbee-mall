@@ -10,6 +10,7 @@ import ltd.newbee.mall.newbeemall.service.NewBeeMallCategoryService;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
+import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
 
 @Controller
 public class IndexController {
@@ -18,6 +19,9 @@ public class IndexController {
 	
 	@Resource
 	private NewBeeMallCategoryService newBeeMallCategoryService;
+	
+	@Resource
+	private NewBeeMallCategoryService NewBeeMallCarouselService;
 	
 	@GetMapping("/goodses")
     @ResponseBody
@@ -31,5 +35,13 @@ public class IndexController {
     public Result getCategories() {
 		
         return ResultGenerator.genSuccessResult(newBeeMallCategoryService.getCategoriesForIndex());
+    }
+	
+	
+	@GetMapping("/Carousels")
+    @ResponseBody
+    public Result getCarousel() {
+		
+        return ResultGenerator.genSuccessResult(NewBeeMallCarouselService.getCategoriesForIndex());
     }
 }
