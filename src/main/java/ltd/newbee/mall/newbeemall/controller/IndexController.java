@@ -11,7 +11,8 @@ import ltd.newbee.mall.newbeemall.service.NewBeeMallIndexConfigService;
 import ltd.newbee.mall.newbeemall.util.Result;
 import ltd.newbee.mall.newbeemall.util.ResultGenerator;
 import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
-
+import ltd.newbee.mall.newbeemall.entity.MallUser;
+import ltd.newbee.mall.newbeemall.service.CheckUserExistsService;
 @Controller
 public class IndexController {
 	@Resource
@@ -21,7 +22,10 @@ public class IndexController {
 	private NewBeeMallCategoryService newBeeMallCategoryService;
 	
 	@Resource
-	private NewBeeMallCategoryService NewBeeMallCarouselService;
+	private NewBeeMallCarouselService newBeeMallCarouselService;
+	
+	@Resource
+	private CheckUserExistsService checkUserExistsService;
 	
 	@GetMapping("/goodses")
     @ResponseBody
@@ -38,10 +42,25 @@ public class IndexController {
     }
 	
 	
-	@GetMapping("/Carousels")
+	@GetMapping("/carousels")
     @ResponseBody
-    public Result getCarousel() {
+    public Result getCarousel(int number) {
 		
-        return ResultGenerator.genSuccessResult(NewBeeMallCarouselService.getCategoriesForIndex());
+        return ResultGenerator.genSuccessResult(newBeeMallCarouselService.getCarouselsForIndex(number));
+    }
+	
+	@GetMapping("/user")
+    @ResponseBody
+    public Result user(long userId) {
+		//MallUser user = checkUserExistsService.checkUserExists(userId);
+		int count = checkUserExistsService.checkUserExistsReturnCount(userId);
+		if(count == 0 ) {
+			return ResultGenerator.genFailResult("failed");
+		}else {
+			return ResultGenerator.genSuccessResult("success");
+			//List<vo> = xxxService.xxxMethod();
+			//return List
+		}
+
     }
 }

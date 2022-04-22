@@ -25,9 +25,12 @@ public class NewBeeMallCategoryServiceImpl implements NewBeeMallCategoryService 
 	@Override
 	public List<NewBeeMallIndexCategoryVO> getCategoriesForIndex() {
 		List<Long> lev1ParentsList= new ArrayList<Long>();
-		lev1ParentsList.add(0l);
+		lev1ParentsList.add(0l); 
+		
 		List<GoodsCategory> lev1CateList= new ArrayList<GoodsCategory>();
 		lev1CateList= GoodsCategoryMapper.selectByLevelAndParentIdsAndNumber(lev1ParentsList,1,100);
+		
+		
 		 List<Long> cateList1= new ArrayList<Long>();
 		 for(GoodsCategory gc: lev1CateList) {
 			 cateList1.add(gc.getCategoryId());

@@ -8,13 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import ltd.newbee.mall.newbeemall.dao.GoodsCategoryMapper;
-import ltd.newbee.mall.newbeemall.entity.GoodsCategory;
+import ltd.newbee.mall.newbeemall.dao.CarouselMapper;
+import ltd.newbee.mall.newbeemall.entity.Carousel;
+import ltd.newbee.mall.newbeemall.service.NewBeeMallCarouselService;
+import ltd.newbee.mall.newbeemall.vo.NewBeeMallIndexCarouselVO;
 
-import ltd.newbee.mall.newbeemall.service.NewBeeMallCategoryService;
-import ltd.newbee.mall.newbeemall.vo.SecondLevelCategoryVO;
-import ltd.newbee.mall.newbeemall.vo.NewBeeMallIndexCategoryVO;
-import ltd.newbee.mall.newbeemall.vo.ThirdLevelCategoryVO;
 
 @Service
 public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService {
@@ -23,9 +21,30 @@ public class NewBeeMallCarouselServiceImpl implements NewBeeMallCarouselService 
 	private CarouselMapper carouselMapper;
 
 	@Override
-	public List<NewBeeMallIndexCarouselVO> getCategoriesForIndex(int num) {
+	public List<NewBeeMallIndexCarouselVO> getCarouselsForIndex(int number) {
 		// TODO Auto-generated method stub
-		return null;
+		
+		List<Carousel> entityList = new ArrayList<>();
+		entityList =carouselMapper.findCarouselsByNum(number);
+		
+		List<NewBeeMallIndexCarouselVO> url = new ArrayList<NewBeeMallIndexCarouselVO>();
+		
+		for(Carousel x : entityList) {
+			
+			NewBeeMallIndexCarouselVO vo = new NewBeeMallIndexCarouselVO();
+			vo.setCarouselUrl(x.getCarouselUrl());
+			vo.setRedirectUrl(x.getRedirectUrl());	
+			url.add(vo);
+			
+		}
+		return url;
 	}
 	
 }
+	/*
+	 * private String carouselUrl;
+	 * 
+	 * private String redirectUrl;
+	 */
+	
+
