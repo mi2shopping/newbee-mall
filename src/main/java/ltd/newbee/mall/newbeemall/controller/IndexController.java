@@ -1,6 +1,7 @@
 package ltd.newbee.mall.newbeemall.controller;
 
 import javax.annotation.Resource;
+import ltd.newbee.mall.newbeemall.service.RescentCheckGoodsService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,10 @@ public class IndexController {
         return ResultGenerator.genSuccessResult(newBeeMallIndexConfigService.getConfigGoodsesForIndex(configType, 5));
     }
 	
+	@Resource
+	private RescentCheckGoodsService rescentCheckGoodsService;
+
+	
 	@GetMapping("/categories")
     @ResponseBody
     public Result getCategories() {
@@ -52,14 +57,13 @@ public class IndexController {
 	@GetMapping("/user")
     @ResponseBody
     public Result user(long userId) {
-		//MallUser user = checkUserExistsService.checkUserExists(userId);
-		int count = checkUserExistsService.checkUserExistsReturnCount(userId);
-		if(count == 0 ) {
+		MallUser user = checkUserExistsService.checkUserExists(userId);
+//		int count = checkUserExistsService.checkUserExistsReturnCount(userId);
+		if(user == null) {
 			return ResultGenerator.genFailResult("failed");
 		}else {
 			return ResultGenerator.genSuccessResult("success");
-			//List<vo> = xxxService.xxxMethod();
-			//return List
+			
 		}
 
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="ltd.newbee.mall.newbeemall.dao.RescentCheckGoodsMapper">
+
+	<select id="getRescentCheckGoodses"
+		resultType="ltd.newbee.mall.newbeemall.entity.NewBeeMallGoods">
+		SELECT INFO.*
+		FROM RESCENT_CHECK_GOODS
+		JOIN TB_NEWBEE_MALL_GOODS_INFO AS INFO
+		ON INFO.GOODS_ID = RESCENT_CHECK_GOODS.GOODS_ID
+		WHERE USER_ID = #{userId}
+		GROUP BY USER_ID ,RESCENT_CHECK_GOODS.GOODS_ID
+		ORDER BY COUNT(CHECK_DATE) DESC
+		LIMIT #{limit}
+	</select>
+
+</mapper>
